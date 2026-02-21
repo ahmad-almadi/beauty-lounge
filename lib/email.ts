@@ -78,7 +78,7 @@ export async function sendBookingConfirmation(data: {
 
   // Notification to business
   const businessResult = await resend.emails.send({
-    from: 'Luxe Beauty Website <onboarding@resend.dev>',
+    from: 'Luxe Beauty  <onboarding@resend.dev>',
     to: businessEmail,
     subject: `📅 New Booking: ${data.service} — ${data.name}`,
     html: `
