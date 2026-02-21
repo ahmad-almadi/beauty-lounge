@@ -8,7 +8,7 @@ import * as THREE from "three";
 /* ═══════════ 1. Lipstick ═══════════ */
 function Lipstick({ position, speed = 1, scale = 1 }: { position: [number, number, number]; speed?: number; scale?: number }) {
   const ref = useRef<THREE.Group>(null);
-  useFrame((s) => { if (ref.current) { ref.current.rotation.z = Math.sin(s.clock.elapsedTime * speed * 0.4) * 0.25 + 0.15; ref.current.rotation.y += 0.006 * speed; } });
+  useFrame((_, delta) => { if (ref.current) { ref.current.rotation.z = Math.sin(Date.now() * 0.001 * speed * 0.4) * 0.25 + 0.15; ref.current.rotation.y += delta * speed * 0.6; } });
   return (
     <Float speed={speed} rotationIntensity={0.4} floatIntensity={0.6}>
       <group ref={ref} position={position} scale={scale}>
@@ -23,7 +23,7 @@ function Lipstick({ position, speed = 1, scale = 1 }: { position: [number, numbe
 /* ═══════════ 2. Perfume Bottle ═══════════ */
 function PerfumeBottle({ position, speed = 1, scale = 1 }: { position: [number, number, number]; speed?: number; scale?: number }) {
   const ref = useRef<THREE.Group>(null);
-  useFrame((s) => { if (ref.current) { ref.current.rotation.y += 0.005 * speed; ref.current.rotation.x = Math.sin(s.clock.elapsedTime * speed * 0.2) * 0.08; } });
+  useFrame((_, delta) => { if (ref.current) { ref.current.rotation.y += delta * speed * 0.5; ref.current.rotation.x = Math.sin(Date.now() * 0.001 * speed * 0.2) * 0.08; } });
   return (
     <Float speed={speed * 0.7} rotationIntensity={0.3} floatIntensity={0.5}>
       <group ref={ref} position={position} scale={scale}>
@@ -38,7 +38,7 @@ function PerfumeBottle({ position, speed = 1, scale = 1 }: { position: [number, 
 /* ═══════════ 3. Nail Polish ═══════════ */
 function NailPolish({ position, color = "#ec4899", speed = 1, scale = 1 }: { position: [number, number, number]; color?: string; speed?: number; scale?: number }) {
   const ref = useRef<THREE.Group>(null);
-  useFrame((s) => { if (ref.current) { ref.current.rotation.z = Math.sin(s.clock.elapsedTime * speed * 0.35) * 0.2; ref.current.rotation.y += 0.007 * speed; } });
+  useFrame((_, delta) => { if (ref.current) { ref.current.rotation.z = Math.sin(Date.now() * 0.001 * speed * 0.35) * 0.2; ref.current.rotation.y += delta * speed * 0.7; } });
   return (
     <Float speed={speed * 0.8} rotationIntensity={0.5} floatIntensity={0.4}>
       <group ref={ref} position={position} scale={scale}>
@@ -53,7 +53,7 @@ function NailPolish({ position, color = "#ec4899", speed = 1, scale = 1 }: { pos
 /* ═══════════ 4. Makeup Mirror ═══════════ */
 function MakeupMirror({ position, speed = 1, scale = 1 }: { position: [number, number, number]; speed?: number; scale?: number }) {
   const ref = useRef<THREE.Group>(null);
-  useFrame((s) => { if (ref.current) { ref.current.rotation.y += 0.004 * speed; ref.current.rotation.z = Math.sin(s.clock.elapsedTime * speed * 0.25) * 0.15; } });
+  useFrame((_, delta) => { if (ref.current) { ref.current.rotation.y += delta * speed * 0.4; ref.current.rotation.z = Math.sin(Date.now() * 0.001 * speed * 0.25) * 0.15; } });
   return (
     <Float speed={speed * 0.6} rotationIntensity={0.3} floatIntensity={0.6}>
       <group ref={ref} position={position} scale={scale}>
@@ -68,7 +68,7 @@ function MakeupMirror({ position, speed = 1, scale = 1 }: { position: [number, n
 /* ═══════════ 5. Makeup Brush ═══════════ */
 function MakeupBrush({ position, speed = 1, scale = 1 }: { position: [number, number, number]; speed?: number; scale?: number }) {
   const ref = useRef<THREE.Group>(null);
-  useFrame((s) => { if (ref.current) { ref.current.rotation.z = Math.sin(s.clock.elapsedTime * speed * 0.3) * 0.3 + 0.4; ref.current.rotation.y += 0.005 * speed; } });
+  useFrame((_, delta) => { if (ref.current) { ref.current.rotation.z = Math.sin(Date.now() * 0.001 * speed * 0.3) * 0.3 + 0.4; ref.current.rotation.y += delta * speed * 0.5; } });
   return (
     <Float speed={speed} rotationIntensity={0.5} floatIntensity={0.5}>
       <group ref={ref} position={position} scale={scale}>
@@ -90,7 +90,7 @@ function HeartShape({ position, color = "#f472b6", speed = 1, scale = 1 }: { pos
     s.bezierCurveTo(0.55, 0.5, 0.55, 0.2, 0.25, 0.2); s.bezierCurveTo(0.05, 0.2, 0, 0.3, 0, 0.3);
     return s;
   }, []);
-  useFrame((s) => { if (ref.current) { ref.current.rotation.y += 0.008 * speed; ref.current.rotation.z = Math.sin(s.clock.elapsedTime * speed * 0.5) * 0.15; } });
+  useFrame((_, delta) => { if (ref.current) { ref.current.rotation.y += delta * speed * 0.8; ref.current.rotation.z = Math.sin(Date.now() * 0.001 * speed * 0.5) * 0.15; } });
   return (
     <Float speed={speed} rotationIntensity={0.4} floatIntensity={0.6}>
       <mesh ref={ref} position={position} scale={scale}>
@@ -104,7 +104,7 @@ function HeartShape({ position, color = "#f472b6", speed = 1, scale = 1 }: { pos
 /* ═══════════ 7. Mascara ═══════════ */
 function Mascara({ position, speed = 1, scale = 1 }: { position: [number, number, number]; speed?: number; scale?: number }) {
   const ref = useRef<THREE.Group>(null);
-  useFrame((s) => { if (ref.current) { ref.current.rotation.z = Math.sin(s.clock.elapsedTime * speed * 0.3) * 0.3 + 0.3; ref.current.rotation.y += 0.005 * speed; } });
+  useFrame((_, delta) => { if (ref.current) { ref.current.rotation.z = Math.sin(Date.now() * 0.001 * speed * 0.3) * 0.3 + 0.3; ref.current.rotation.y += delta * speed * 0.5; } });
   return (
     <Float speed={speed * 0.9} rotationIntensity={0.4} floatIntensity={0.5}>
       <group ref={ref} position={position} scale={scale}>
@@ -118,7 +118,7 @@ function Mascara({ position, speed = 1, scale = 1 }: { position: [number, number
 /* ═══════════ 8. Compact Powder ═══════════ */
 function CompactPowder({ position, speed = 1, scale = 1 }: { position: [number, number, number]; speed?: number; scale?: number }) {
   const ref = useRef<THREE.Group>(null);
-  useFrame((s) => { if (ref.current) { ref.current.rotation.y += 0.004 * speed; ref.current.rotation.x = Math.sin(s.clock.elapsedTime * speed * 0.2) * 0.1; } });
+  useFrame((_, delta) => { if (ref.current) { ref.current.rotation.y += delta * speed * 0.4; ref.current.rotation.x = Math.sin(Date.now() * 0.001 * speed * 0.2) * 0.1; } });
   return (
     <Float speed={speed * 0.6} rotationIntensity={0.3} floatIntensity={0.7}>
       <group ref={ref} position={position} scale={scale}>
@@ -132,7 +132,7 @@ function CompactPowder({ position, speed = 1, scale = 1 }: { position: [number, 
 /* ═══════════ 9. Hair Comb ═══════════ */
 function HairComb({ position, speed = 1, scale = 1 }: { position: [number, number, number]; speed?: number; scale?: number }) {
   const ref = useRef<THREE.Group>(null);
-  useFrame((s) => { if (ref.current) { ref.current.rotation.z = Math.sin(s.clock.elapsedTime * speed * 0.25) * 0.2 + 0.1; ref.current.rotation.y += 0.004 * speed; } });
+  useFrame((_, delta) => { if (ref.current) { ref.current.rotation.z = Math.sin(Date.now() * 0.001 * speed * 0.25) * 0.2 + 0.1; ref.current.rotation.y += delta * speed * 0.4; } });
   return (
     <Float speed={speed * 0.7} rotationIntensity={0.3} floatIntensity={0.5}>
       <group ref={ref} position={position} scale={scale}>
@@ -148,7 +148,7 @@ function HairComb({ position, speed = 1, scale = 1 }: { position: [number, numbe
 /* ═══════════ 10. Eye Shadow Palette ═══════════ */
 function EyeShadow({ position, speed = 1, scale = 1 }: { position: [number, number, number]; speed?: number; scale?: number }) {
   const ref = useRef<THREE.Group>(null);
-  useFrame((s) => { if (ref.current) { ref.current.rotation.y += 0.005 * speed; ref.current.rotation.x = Math.sin(s.clock.elapsedTime * speed * 0.2) * 0.08; } });
+  useFrame((_, delta) => { if (ref.current) { ref.current.rotation.y += delta * speed * 0.5; ref.current.rotation.x = Math.sin(Date.now() * 0.001 * speed * 0.2) * 0.08; } });
   const colors = ["#f9a8d4", "#ec4899", "#f472b6", "#fce7f3"];
   return (
     <Float speed={speed * 0.6} rotationIntensity={0.2} floatIntensity={0.6}>
@@ -165,7 +165,7 @@ function EyeShadow({ position, speed = 1, scale = 1 }: { position: [number, numb
 /* ═══════════ 11. Hair Dryer ═══════════ */
 function HairDryer({ position, speed = 1, scale = 1 }: { position: [number, number, number]; speed?: number; scale?: number }) {
   const ref = useRef<THREE.Group>(null);
-  useFrame((s) => { if (ref.current) { ref.current.rotation.z = Math.sin(s.clock.elapsedTime * speed * 0.3) * 0.15 - 0.3; ref.current.rotation.y += 0.004 * speed; } });
+  useFrame((_, delta) => { if (ref.current) { ref.current.rotation.z = Math.sin(Date.now() * 0.001 * speed * 0.3) * 0.15 - 0.3; ref.current.rotation.y += delta * speed * 0.4; } });
   return (
     <Float speed={speed * 0.7} rotationIntensity={0.3} floatIntensity={0.5}>
       <group ref={ref} position={position} scale={scale}>
@@ -180,7 +180,7 @@ function HairDryer({ position, speed = 1, scale = 1 }: { position: [number, numb
 /* ═══════════ 12. Gem / Diamond ═══════════ */
 function Gem({ position, color = "#f9a8d4", speed = 1, scale = 1 }: { position: [number, number, number]; color?: string; speed?: number; scale?: number }) {
   const ref = useRef<THREE.Mesh>(null);
-  useFrame((s) => { if (ref.current) { ref.current.rotation.y += 0.012 * speed; ref.current.rotation.x = Math.sin(s.clock.elapsedTime * speed * 0.3) * 0.4; } });
+  useFrame((_, delta) => { if (ref.current) { ref.current.rotation.y += delta * speed * 1.2; ref.current.rotation.x = Math.sin(Date.now() * 0.001 * speed * 0.3) * 0.4; } });
   return (
     <Float speed={speed * 1.2} rotationIntensity={0.6} floatIntensity={0.5}>
       <mesh ref={ref} position={position} scale={scale}>
