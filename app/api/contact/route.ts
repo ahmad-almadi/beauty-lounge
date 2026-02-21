@@ -21,20 +21,12 @@ export async function POST(req: NextRequest) {
         // Save to database
         await saveContactMessage({ name, email, subject, message });
 
-        // Try sending email (don't fail the request if email fails)
-        let emailSent = false;
-        try {
-            await sendContactEmail({ name, email, subject, message });
-            emailSent = true;
-        } catch (emailErr) {
-            console.error("Email sending failed (message still saved to DB):", emailErr);
-        }
+        // Send email
+        await sendContactEmail({ name, email, subject, message });
 
         return NextResponse.json({
             success: true,
-            message: emailSent
-                ? "Message sent successfully!"
-                : "Message saved! Email notification could not be sent at this time.",
+            message: "Message sent successfully!",
         });
     } catch (error) {
         console.error("Contact API error:", error);

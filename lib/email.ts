@@ -27,7 +27,16 @@ export async function sendContactEmail(data: {
   subject: string;
   message: string;
 }) {
-  await transporter.sendMail({
+  console.log("📧 Attempting to send contact email...");
+  console.log("SMTP Config:", {
+    host: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
+    user: process.env.SMTP_USER,
+    hasPassword: !!process.env.SMTP_PASS,
+    businessEmail
+  });
+  
+  const result = await transporter.sendMail({
     from: `"${data.name}" <${data.email}>`,
     to: businessEmail,
     replyTo: data.email,
@@ -47,6 +56,9 @@ export async function sendContactEmail(data: {
       </div>
     `,
   });
+  
+  console.log("✅ Contact email sent successfully:", result.messageId);
+  return result;
 }
 
 /* ══════════ Booking confirmation → email to customer ══════════ */
@@ -59,8 +71,17 @@ export async function sendBookingConfirmation(data: {
   time: string;
   message?: string;
 }) {
+  console.log("📧 Attempting to send booking confirmation emails...");
+  console.log("SMTP Config:", {
+    host: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
+    user: process.env.SMTP_USER,
+    hasPassword: !!process.env.SMTP_PASS,
+    businessEmail
+  });
+  
   // Email to customer
-  await transporter.sendMail({
+  const customerResult = await transporter.sendMail({
     from: `"Luxe Beauty Lounge" <${process.env.SMTP_USER}>`,
     to: data.email,
     subject: `✅ Booking Confirmed — ${data.service}`,
@@ -83,9 +104,11 @@ export async function sendBookingConfirmation(data: {
       </div>
     `,
   });
+  
+  console.log("✅ Customer confirmation email sent:", customerResult.messageId);
 
   // Notification to business
-  await transporter.sendMail({
+  const businessResult = await transporter.sendMail({
     from: `"Luxe Beauty Website" <${process.env.SMTP_USER}>`,
     to: businessEmail,
     subject: `📅 New Booking: ${data.service} — ${data.name}`,
@@ -106,4 +129,7 @@ export async function sendBookingConfirmation(data: {
       </div>
     `,
   });
+  
+  console.log("✅ Business notification email sent:", businessResult.messageId);
+  return { customerResult, businessResult };
 }
