@@ -1,19 +1,7 @@
-import nodemailer from "nodemailer";
+import { Resend } from 'resend';
 
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST || "smtp.gmail.com",
-  port: parseInt(process.env.SMTP_PORT || "465", 10),
-  secure: true, // true for port 465 (SSL)
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-  connectionTimeout: 10000,
-  greetingTimeout: 10000,
-  socketTimeout: 10000,
-});
-
-const businessEmail = process.env.BUSINESS_EMAIL || process.env.SMTP_USER || "";
+const resend = new Resend(process.env.RESEND_API_KEY);
+const businessEmail = process.env.BUSINESS_EMAIL || "ahmadalmadi2005@gmail.com";
 
 /* ══════════ Contact form → email to business ══════════ */
 export async function sendContactEmail(data: {
@@ -22,17 +10,10 @@ export async function sendContactEmail(data: {
   subject: string;
   message: string;
 }) {
-  console.log("📧 Attempting to send contact email...");
-  console.log("SMTP Config:", {
-    host: process.env.SMTP_HOST,
-    port: process.env.SMTP_PORT,
-    user: process.env.SMTP_USER,
-    hasPassword: !!process.env.SMTP_PASS,
-    businessEmail
-  });
+  console.log("📧 Attempting to send contact email via Resend...");
   
-  const result = await transporter.sendMail({
-    from: `"${data.name}" <${data.email}>`,
+  const result = await resend.emails.send({
+    from: 'Luxe Beauty <onboarding@resend.dev>',
     to: businessEmail,
     replyTo: data.email,
     subject: `[Contact] ${data.subject}`,
@@ -52,7 +33,7 @@ export async function sendContactEmail(data: {
     `,
   });
   
-  console.log("✅ Contact email sent successfully:", result.messageId);
+  console.log("✅ Contact email sent successfully:", result);
   return result;
 }
 
@@ -66,18 +47,11 @@ export async function sendBookingConfirmation(data: {
   time: string;
   message?: string;
 }) {
-  console.log("📧 Attempting to send booking confirmation emails...");
-  console.log("SMTP Config:", {
-    host: process.env.SMTP_HOST,
-    port: process.env.SMTP_PORT,
-    user: process.env.SMTP_USER,
-    hasPassword: !!process.env.SMTP_PASS,
-    businessEmail
-  });
+  console.log("📧 Attempting to send booking confirmation emails via Resend...");
   
   // Email to customer
-  const customerResult = await transporter.sendMail({
-    from: `"Luxe Beauty Lounge" <${process.env.SMTP_USER}>`,
+  const customerResult = await resend.emails.send({
+    from: 'Luxe Beauty Lounge <onboarding@resend.dev>',
     to: data.email,
     subject: `✅ Booking Confirmed — ${data.service}`,
     html: `
@@ -100,11 +74,11 @@ export async function sendBookingConfirmation(data: {
     `,
   });
   
-  console.log("✅ Customer confirmation email sent:", customerResult.messageId);
+  console.log("✅ Customer confirmation email sent:", customerResult);
 
   // Notification to business
-  const businessResult = await transporter.sendMail({
-    from: `"Luxe Beauty Website" <${process.env.SMTP_USER}>`,
+  const businessResult = await resend.emails.send({
+    from: 'Luxe Beauty Website <onboarding@resend.dev>',
     to: businessEmail,
     subject: `📅 New Booking: ${data.service} — ${data.name}`,
     html: `
@@ -125,6 +99,6 @@ export async function sendBookingConfirmation(data: {
     `,
   });
   
-  console.log("✅ Business notification email sent:", businessResult.messageId);
+  console.log("✅ Business notification email sent:", businessResult);
   return { customerResult, businessResult };
 }
