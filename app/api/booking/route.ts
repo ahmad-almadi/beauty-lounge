@@ -39,9 +39,11 @@ export async function POST(req: NextRequest) {
             booking,
         });
     } catch (error) {
-        console.error("Booking API error:", error);
+        console.error("❌ Booking API error:", error);
+        const errorMessage = error instanceof Error ? error.message : "Unknown error";
+        console.error("Error details:", errorMessage);
         return NextResponse.json(
-            { error: "Failed to book appointment. Please try again later." },
+            { error: `Failed to book appointment: ${errorMessage}` },
             { status: 500 }
         );
     }
