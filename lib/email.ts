@@ -3,12 +3,17 @@ import nodemailer from "nodemailer";
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST || "smtp.gmail.com",
   port: parseInt(process.env.SMTP_PORT || "587", 10),
-  secure: false, // true for 465, false for other ports
+  secure: false, // true for port 465, false for other ports like 587
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,
   },
-  connectionTimeout: 10000, // 10 seconds
+  tls: {
+    // This is often needed in cloud environments like Railway 
+    // to avoid certificate validation issues
+    rejectUnauthorized: false
+  },
+  connectionTimeout: 10000,
   greetingTimeout: 10000,
   socketTimeout: 10000,
 });
