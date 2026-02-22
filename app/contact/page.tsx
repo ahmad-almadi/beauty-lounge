@@ -56,10 +56,10 @@ export default function ContactPage() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-16"
           >
-            <h1 className="text-5xl md:text-6xl font-[family-name:var(--font-playfair)] font-bold mb-6">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-[family-name:var(--font-playfair)] font-bold mb-6">
               Get In <span className="bg-gradient-to-r from-primary-500 to-lilac-500 bg-clip-text text-transparent">Touch</span>
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4">
               Have questions or want to learn more? We'd love to hear from you.
               Reach out and let's start a conversation.
             </p>
@@ -71,7 +71,7 @@ export default function ContactPage() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 }}
             >
-              <div className="glass-effect rounded-3xl p-8 md:p-12 h-full">
+              <div className="glass-effect rounded-3xl p-6 sm:p-8 md:p-12 h-full">
                 {submitted ? (
                   <motion.div
                     initial={{ scale: 0.8, opacity: 0 }}

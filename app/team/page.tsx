@@ -65,10 +65,10 @@ export default function TeamPage() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-16"
           >
-            <h1 className="text-5xl md:text-6xl font-[family-name:var(--font-playfair)] font-bold mb-6">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-[family-name:var(--font-playfair)] font-bold mb-6">
               Meet Our <span className="bg-gradient-to-r from-primary-500 to-lilac-500 bg-clip-text text-transparent">Team</span>
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4">
               Our talented team of beauty professionals is dedicated to making you look and feel your absolute best.
               Each member brings unique expertise and a passion for excellence.
             </p>
@@ -84,7 +84,7 @@ export default function TeamPage() {
                 whileHover={{ y: -8, transition: { duration: 0.2 } }}
                 className="group"
               >
-                <div className="glass-effect rounded-3xl p-8 h-full hover:shadow-2xl transition-shadow duration-200">
+                <div className="glass-effect rounded-3xl p-6 sm:p-8 h-full hover:shadow-2xl transition-shadow duration-200">
                   <div className="relative mb-6">
                     <div className="aspect-square rounded-2xl overflow-hidden">
                       <Image

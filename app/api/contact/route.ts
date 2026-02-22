@@ -21,19 +21,25 @@ export async function POST(req: NextRequest) {
         // Save to database
         await saveContactMessage({ name, email, subject, message });
 
-        // Send email
-        await sendContactEmail({ name, email, subject, message });
+        // Try sending email (don't fail the request if email fails)
+        let emailSent = false;
+        try {
+            await sendContactEmail({ name, email, subject, message });
+            emailSent = true;
+        } catch (emailErr) {
+            console.error("Email sending failed (message still saved to DB):", emailErr);
+        }
 
         return NextResponse.json({
             success: true,
-            message: "Message sent successfully!",
+            message: emailSent
+                ? "Message sent successfully!"
+                : "Message saved! Email notification could not be sent at this time.",
         });
     } catch (error) {
-        console.error("❌ Contact API error:", error);
-        const errorMessage = error instanceof Error ? error.message : "Unknown error";
-        console.error("Error details:", errorMessage);
+        console.error("Contact API error:", error);
         return NextResponse.json(
-            { error: `Failed to send message: ${errorMessage}` },
+            { error: "Failed to send message. Please try again later." },
             { status: 500 }
         );
     }

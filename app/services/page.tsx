@@ -83,10 +83,10 @@ export default function ServicesPage() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-16"
           >
-            <h1 className="text-5xl md:text-6xl font-[family-name:var(--font-playfair)] font-bold mb-6">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-[family-name:var(--font-playfair)] font-bold mb-6">
               Our <span className="bg-gradient-to-r from-primary-500 to-lilac-500 bg-clip-text text-transparent">Services</span>
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4">
               Indulge in our comprehensive range of premium beauty and wellness services, 
               each designed to enhance your natural radiance and leave you feeling refreshed.
             </p>
@@ -100,7 +100,7 @@ export default function ServicesPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ y: -10 }}
-                className="glass-effect rounded-3xl p-8 hover:shadow-2xl transition-all duration-300"
+                className="glass-effect rounded-3xl p-6 sm:p-8 hover:shadow-2xl transition-all duration-300"
               >
                 <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${category.color} flex items-center justify-center mb-6`}>
                   <category.icon className="w-8 h-8 text-white" />

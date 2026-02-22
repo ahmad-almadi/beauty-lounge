@@ -71,13 +71,13 @@ export default function Testimonials() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-[family-name:var(--font-playfair)] font-bold mb-4 text-gray-800">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-[family-name:var(--font-playfair)] font-bold mb-4 text-gray-800">
             Client{" "}
             <span className="bg-gradient-to-r from-pink-500 to-rose-400 bg-clip-text text-transparent">
               Love
             </span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto px-4">
             Hear what our valued clients have to say about their experience
           </p>
         </motion.div>
@@ -108,7 +108,7 @@ export default function Testimonials() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -60 }}
               transition={{ duration: 0.4, ease: "easeInOut" }}
-              className="glass-effect-strong rounded-3xl p-12 relative shadow-xl shadow-pink-200/20"
+              className="glass-effect-strong rounded-3xl p-6 sm:p-8 md:p-12 relative shadow-xl shadow-pink-200/20"
             >
               <Quote className="absolute top-8 left-8 w-12 h-12 text-pink-200" />
 
@@ -119,7 +119,7 @@ export default function Testimonials() {
                   ))}
                 </div>
 
-                <p className="text-xl md:text-2xl text-gray-700 text-center mb-8 font-light leading-relaxed">
+                <p className="text-lg sm:text-xl md:text-2xl text-gray-700 text-center mb-8 font-light leading-relaxed">
                   &ldquo;{testimonials[activeIndex].content}&rdquo;
                 </p>
 

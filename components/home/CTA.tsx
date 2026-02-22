@@ -13,7 +13,7 @@ export default function CTA() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="glass-effect-strong rounded-3xl p-12 md:p-16 text-center relative overflow-hidden shadow-xl shadow-pink-200/20"
+          className="glass-effect-strong rounded-3xl p-6 sm:p-8 md:p-12 lg:p-16 text-center relative overflow-hidden shadow-xl shadow-pink-200/20"
         >
           {/* Decorative background elements */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-pink-200/20 rounded-full blur-3xl" />
@@ -30,11 +30,11 @@ export default function CTA() {
               <FontAwesomeIcon icon={faCalendar} className="w-10 h-10 text-white" />
             </motion.div>
 
-            <h2 className="text-4xl md:text-5xl font-[family-name:var(--font-playfair)] font-bold mb-6 text-gray-800">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-[family-name:var(--font-playfair)] font-bold mb-6 text-gray-800">
               Ready to Transform Your Look?
             </h2>
 
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-10">
+            <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto mb-10 px-4">
               Book your appointment today and experience the luxury you deserve.
               Our expert team is ready to bring out your natural beauty.
             </p>
@@ -42,7 +42,7 @@ export default function CTA() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 href="/booking"
-                className="group px-8 py-4 bg-gradient-to-r from-pink-500 to-rose-400 text-white rounded-full hover:shadow-2xl hover:shadow-pink-300/40 hover:scale-105 transition-all duration-300 flex items-center space-x-2"
+                className="group w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-pink-500 to-rose-400 text-white rounded-full hover:shadow-2xl hover:shadow-pink-300/40 hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
               >
                 <span className="font-semibold">Book Your Appointment</span>
                 <FontAwesomeIcon icon={faArrowRight} className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -50,7 +50,7 @@ export default function CTA() {
 
               <Link
                 href="/contact"
-                className="px-8 py-4 glass-effect rounded-full hover:shadow-lg hover:shadow-pink-200/30 hover:scale-105 transition-all duration-300 font-semibold text-gray-700 border border-pink-200/50"
+                className="w-full sm:w-auto px-8 py-4 glass-effect rounded-full hover:shadow-lg hover:shadow-pink-200/30 hover:scale-105 transition-all duration-300 font-semibold text-gray-700 border border-pink-200/50"
               >
                 Contact Us
               </Link>

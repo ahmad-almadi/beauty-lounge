@@ -1,4 +1,4 @@
-import { Resend } from 'resend';
+import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const businessEmail = process.env.BUSINESS_EMAIL || "ahmadalmadi2005@gmail.com";
@@ -11,9 +11,11 @@ export async function sendContactEmail(data: {
   message: string;
 }) {
   console.log("📧 Attempting to send contact email via Resend...");
+  console.log("Business Email:", businessEmail);
+  console.log("From:", data.email);
   
   const result = await resend.emails.send({
-    from: 'Luxe Beauty <onboarding@resend.dev>',
+    from: `Luxe Beauty <onboarding@resend.dev>`,
     to: businessEmail,
     replyTo: data.email,
     subject: `[Contact] ${data.subject}`,
@@ -33,7 +35,7 @@ export async function sendContactEmail(data: {
     `,
   });
   
-  console.log("✅ Contact email sent successfully:", result);
+  console.log("✅ Contact email sent successfully:", result.data?.id);
   return result;
 }
 
@@ -48,10 +50,12 @@ export async function sendBookingConfirmation(data: {
   message?: string;
 }) {
   console.log("📧 Attempting to send booking confirmation emails via Resend...");
+  console.log("Customer Email:", data.email);
+  console.log("Business Email:", businessEmail);
   
   // Email to customer
   const customerResult = await resend.emails.send({
-    from: 'Luxe Beauty Lounge <onboarding@resend.dev>',
+    from: `Luxe Beauty Lounge <onboarding@resend.dev>`,
     to: data.email,
     subject: `✅ Booking Confirmed — ${data.service}`,
     html: `
@@ -74,11 +78,11 @@ export async function sendBookingConfirmation(data: {
     `,
   });
   
-  console.log("✅ Customer confirmation email sent:", customerResult);
+  console.log("✅ Customer confirmation email sent:", customerResult.data?.id);
 
   // Notification to business
   const businessResult = await resend.emails.send({
-    from: 'Luxe Beauty  <onboarding@resend.dev>',
+    from: `Luxe Beauty Website <onboarding@resend.dev>`,
     to: businessEmail,
     subject: `📅 New Booking: ${data.service} — ${data.name}`,
     html: `
@@ -99,6 +103,6 @@ export async function sendBookingConfirmation(data: {
     `,
   });
   
-  console.log("✅ Business notification email sent:", businessResult);
+  console.log("✅ Business notification email sent:", businessResult.data?.id);
   return { customerResult, businessResult };
 }

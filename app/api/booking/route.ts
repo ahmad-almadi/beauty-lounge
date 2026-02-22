@@ -30,20 +30,26 @@ export async function POST(req: NextRequest) {
         // Create booking in DB
         const booking = await createBooking({ name, email, phone, service, date, time, message });
 
-        // Send confirmation emails
-        await sendBookingConfirmation({ name, email, phone, service, date, time, message });
+        // Try sending confirmation emails (don't fail request if email fails)
+        let emailSent = false;
+        try {
+            await sendBookingConfirmation({ name, email, phone, service, date, time, message });
+            emailSent = true;
+        } catch (emailErr) {
+            console.error("Booking email failed (booking still saved to DB):", emailErr);
+        }
 
         return NextResponse.json({
             success: true,
-            message: "Appointment booked successfully! Confirmation email sent.",
+            message: emailSent
+                ? "Appointment booked successfully! Confirmation email sent."
+                : "Appointment booked successfully! Email confirmation could not be sent at this time.",
             booking,
         });
     } catch (error) {
-        console.error("❌ Booking API error:", error);
-        const errorMessage = error instanceof Error ? error.message : "Unknown error";
-        console.error("Error details:", errorMessage);
+        console.error("Booking API error:", error);
         return NextResponse.json(
-            { error: `Failed to book appointment: ${errorMessage}` },
+            { error: "Failed to book appointment. Please try again later." },
             { status: 500 }
         );
     }

@@ -131,23 +131,23 @@ export default function BookingPage() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-12"
           >
-            <h1 className="text-5xl md:text-6xl font-[family-name:var(--font-playfair)] font-bold mb-6">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-[family-name:var(--font-playfair)] font-bold mb-6">
               Book Your{" "}
               <span className="bg-gradient-to-r from-primary-500 to-lilac-500 bg-clip-text text-transparent">
                 Appointment
               </span>
             </h1>
-            <p className="text-xl text-gray-600">
+            <p className="text-lg sm:text-xl text-gray-600 px-4">
               Select your preferred service and time. We'll confirm your
               appointment shortly.
             </p>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="glass-effect rounded-3xl p-8 md:p-12"
+            className="glass-effect rounded-3xl p-6 sm:p-8 md:p-12"
           >
             {submitted ? (
               <motion.div

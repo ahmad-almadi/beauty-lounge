@@ -22,7 +22,7 @@ export default function About() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-4xl md:text-5xl font-[family-name:var(--font-playfair)] font-bold mb-6 text-gray-800">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-[family-name:var(--font-playfair)] font-bold mb-6 text-gray-800">
               Where Luxury Meets{" "}
               <span className="bg-gradient-to-r from-pink-500 to-rose-400 bg-clip-text text-transparent">
                 Expertise
@@ -38,7 +38,7 @@ export default function About() {
               Every detail is designed to provide you with an unforgettable experience.
             </p>
 
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {features.map((feature, index) => (
                 <motion.div
                   key={index}

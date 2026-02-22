@@ -201,50 +201,88 @@ function heartPos(t: number, sc = 0.6, oy = 1.5): [number, number, number] {
 /* ═══════════════════ MAIN ═══════════════════ */
 export default function ThreeBackground() {
   const [mounted, setMounted] = useState(false);
-  useEffect(() => { setMounted(true); }, []);
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => { 
+    setMounted(true);
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+  
   if (!mounted) return null;
 
   const p = (i: number) => (2 * Math.PI * i) / 30;
 
+  // Mobile: small elements on left and right sides
+  const mobileScale = 0.35;
+  const mobileCameraZ = 20;
+
+  // Desktop: full heart pattern
+  const desktopScale = 0.5;
+  const desktopCameraZ = 18;
+
   return (
     <div className="fixed inset-0 -z-10 pointer-events-none" style={{ background: "transparent" }}>
-      <Canvas camera={{ position: [0, 0, 18], fov: 60 }}>
+      <Canvas camera={{ position: [0, 0, isMobile ? mobileCameraZ : desktopCameraZ], fov: 60 }}>
         <ambientLight intensity={2.5} color="#ffe4e9" />
         <directionalLight position={[5, 5, 5]} intensity={2} color="#ffc0cb" />
         <directionalLight position={[-5, -3, 3]} intensity={1} color="#e8b4f8" />
         <pointLight position={[0, 3, 8]} intensity={1.5} color="#ffb6c1" />
 
-        {/* 30 small beauty items tracing a big heart outline */}
-        <Lipstick position={heartPos(p(0))} speed={0.5} scale={0.55} />
-        <PerfumeBottle position={heartPos(p(1))} speed={0.6} scale={0.5} />
-        <MakeupMirror position={heartPos(p(2))} speed={0.4} scale={0.5} />
-        <NailPolish position={heartPos(p(3))} color="#ec4899" speed={0.7} scale={0.5} />
-        <Mascara position={heartPos(p(4))} speed={0.5} scale={0.55} />
-        <CompactPowder position={heartPos(p(5))} speed={0.6} scale={0.5} />
-        <HairComb position={heartPos(p(6))} speed={0.4} scale={0.55} />
-        <EyeShadow position={heartPos(p(7))} speed={0.5} scale={0.5} />
-        <HairDryer position={heartPos(p(8))} speed={0.6} scale={0.45} />
-        <Gem position={heartPos(p(9))} color="#f472b6" speed={0.5} scale={0.55} />
-        <HeartShape position={heartPos(p(10))} color="#f472b6" speed={0.4} scale={0.4} />
-        <MakeupBrush position={heartPos(p(11))} speed={0.6} scale={0.55} />
-        <Lipstick position={heartPos(p(12))} speed={0.5} scale={0.5} />
-        <PerfumeBottle position={heartPos(p(13))} speed={0.4} scale={0.5} />
-        <NailPolish position={heartPos(p(14))} color="#f9a8d4" speed={0.6} scale={0.5} />
-        <Mascara position={heartPos(p(15))} speed={0.5} scale={0.5} />
-        <CompactPowder position={heartPos(p(16))} speed={0.4} scale={0.5} />
-        <EyeShadow position={heartPos(p(17))} speed={0.6} scale={0.45} />
-        <HairDryer position={heartPos(p(18))} speed={0.5} scale={0.45} />
-        <Gem position={heartPos(p(19))} color="#ec4899" speed={0.4} scale={0.5} />
-        <HeartShape position={heartPos(p(20))} color="#f9a8d4" speed={0.6} scale={0.35} />
-        <MakeupBrush position={heartPos(p(21))} speed={0.5} scale={0.5} />
-        <HairComb position={heartPos(p(22))} speed={0.4} scale={0.5} />
-        <MakeupMirror position={heartPos(p(23))} speed={0.6} scale={0.5} />
-        <Lipstick position={heartPos(p(24))} speed={0.5} scale={0.5} />
-        <NailPolish position={heartPos(p(25))} color="#f472b6" speed={0.4} scale={0.5} />
-        <Mascara position={heartPos(p(26))} speed={0.6} scale={0.5} />
-        <CompactPowder position={heartPos(p(27))} speed={0.5} scale={0.45} />
-        <Gem position={heartPos(p(28))} color="#f9a8d4" speed={0.4} scale={0.5} />
-        <MakeupBrush position={heartPos(p(29))} speed={0.5} scale={0.5} />
+        {isMobile ? (
+          // Mobile: Elements distributed on left and right sides, symmetrically positioned
+          <>
+            {/* Left side - top to bottom, all at same x position */}
+            <Lipstick position={[-3.5, 5, -1]} speed={0.5} scale={mobileScale} />
+            <PerfumeBottle position={[-3.5, 2, -1]} speed={0.6} scale={mobileScale} />
+            <NailPolish position={[-3.5, -1, -1]} color="#ec4899" speed={0.7} scale={mobileScale} />
+            <MakeupBrush position={[-3.5, -4, -1]} speed={0.5} scale={mobileScale} />
+            <CompactPowder position={[-3.5, -7, -1]} speed={0.6} scale={mobileScale} />
+            
+            {/* Right side - top to bottom, all at same x position */}
+            <Mascara position={[2.5, 5, -1]} speed={0.5} scale={mobileScale} />
+            <MakeupMirror position={[2.5, 2, -1]} speed={0.4} scale={mobileScale} />
+            <NailPolish position={[2.5, -1, -1]} color="#f472b6" speed={0.6} scale={mobileScale} />
+            <EyeShadow position={[2.5, -4, -1]} speed={0.5} scale={mobileScale} />
+            <Gem position={[2.5, -7, -1]} color="#f9a8d4" speed={0.5} scale={mobileScale} />
+          </>
+        ) : (
+          // Desktop: Full heart pattern with 30 elements
+          <>
+            <Lipstick position={heartPos(p(0))} speed={0.5} scale={desktopScale} />
+            <PerfumeBottle position={heartPos(p(1))} speed={0.6} scale={desktopScale} />
+            <MakeupMirror position={heartPos(p(2))} speed={0.4} scale={desktopScale} />
+            <NailPolish position={heartPos(p(3))} color="#ec4899" speed={0.7} scale={desktopScale} />
+            <Mascara position={heartPos(p(4))} speed={0.5} scale={desktopScale} />
+            <CompactPowder position={heartPos(p(5))} speed={0.6} scale={desktopScale} />
+            <HairComb position={heartPos(p(6))} speed={0.4} scale={desktopScale} />
+            <EyeShadow position={heartPos(p(7))} speed={0.5} scale={desktopScale} />
+            <HairDryer position={heartPos(p(8))} speed={0.6} scale={desktopScale * 0.9} />
+            <Gem position={heartPos(p(9))} color="#f472b6" speed={0.5} scale={desktopScale} />
+            <HeartShape position={heartPos(p(10))} color="#f472b6" speed={0.4} scale={desktopScale * 0.8} />
+            <MakeupBrush position={heartPos(p(11))} speed={0.6} scale={desktopScale} />
+            <Lipstick position={heartPos(p(12))} speed={0.5} scale={desktopScale} />
+            <PerfumeBottle position={heartPos(p(13))} speed={0.4} scale={desktopScale} />
+            <NailPolish position={heartPos(p(14))} color="#f9a8d4" speed={0.6} scale={desktopScale} />
+            <Mascara position={heartPos(p(15))} speed={0.5} scale={desktopScale} />
+            <CompactPowder position={heartPos(p(16))} speed={0.4} scale={desktopScale} />
+            <EyeShadow position={heartPos(p(17))} speed={0.6} scale={desktopScale * 0.9} />
+            <HairDryer position={heartPos(p(18))} speed={0.5} scale={desktopScale * 0.9} />
+            <Gem position={heartPos(p(19))} color="#ec4899" speed={0.4} scale={desktopScale} />
+            <HeartShape position={heartPos(p(20))} color="#f9a8d4" speed={0.6} scale={desktopScale * 0.7} />
+            <MakeupBrush position={heartPos(p(21))} speed={0.5} scale={desktopScale} />
+            <HairComb position={heartPos(p(22))} speed={0.4} scale={desktopScale} />
+            <MakeupMirror position={heartPos(p(23))} speed={0.6} scale={desktopScale} />
+            <Lipstick position={heartPos(p(24))} speed={0.5} scale={desktopScale} />
+            <NailPolish position={heartPos(p(25))} color="#f472b6" speed={0.4} scale={desktopScale} />
+            <Mascara position={heartPos(p(26))} speed={0.6} scale={desktopScale} />
+            <CompactPowder position={heartPos(p(27))} speed={0.5} scale={desktopScale * 0.9} />
+            <Gem position={heartPos(p(28))} color="#f9a8d4" speed={0.4} scale={desktopScale} />
+            <MakeupBrush position={heartPos(p(29))} speed={0.5} scale={desktopScale} />
+          </>
+        )}
       </Canvas>
     </div>
   );

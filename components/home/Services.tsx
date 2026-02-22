@@ -45,10 +45,10 @@ export default function Services() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-[family-name:var(--font-playfair)] font-bold mb-4 text-gray-800">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-[family-name:var(--font-playfair)] font-bold mb-4 text-gray-800">
             Our <span className="bg-gradient-to-r from-pink-500 to-rose-400 bg-clip-text text-transparent">Services</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto px-4">
             Discover our comprehensive range of premium beauty and wellness services
           </p>
         </motion.div>
@@ -64,7 +64,7 @@ export default function Services() {
               whileHover={{ y: -10 }}
               className="group relative"
             >
-              <div className="glass-effect-strong rounded-3xl p-8 h-full transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-pink-200/30">
+              <div className="glass-effect-strong rounded-3xl p-6 sm:p-8 h-full transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-pink-200/30">
                 <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${service.iconBg} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-pink-200/30`}>
                   <service.icon className="w-8 h-8 text-white" />
                 </div>
